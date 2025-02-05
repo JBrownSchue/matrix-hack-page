@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Hack</title>
+    <title>Matrix Hack Page</title>
     <style>
         body {
             margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
             overflow: hidden;
             background: black;
             color: limegreen;
@@ -20,11 +21,13 @@
         }
         #message {
             position: absolute;
-            width: 100%;
-            top: 40%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 2em;
+            color: red;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.5s;
             background: black;
             padding: 10px;
         }
@@ -34,7 +37,7 @@
     <canvas id="matrixCanvas"></canvas>
     <div id="message"></div>
     
-    <audio id="hackSound" src="hack_sound.mp3" preload="auto"></audio>
+    <audio id="hackSound" src="hack_sound.mp3" preload="auto" style="display: none;"></audio>
     
     <script>
         const canvas = document.getElementById("matrixCanvas");
@@ -65,9 +68,10 @@
         setInterval(drawMatrix, 50);
         
         let audioPlayed = false;
+        let timeoutPassed = false;
 
         function playHackSound() {
-            if (!audioPlayed) {
+            if (!audioPlayed && timeoutPassed) {
                 document.getElementById("hackSound").play();
                 audioPlayed = true;
             }
@@ -76,6 +80,7 @@
         setTimeout(() => {
             document.getElementById("message").textContent = "Du wurdest gehackt!";
             document.getElementById("message").style.opacity = 1;
+            timeoutPassed = true;
             playHackSound();
         }, 3000);
         
@@ -83,7 +88,15 @@
             document.getElementById("message").textContent = "Nur Spaß, scanne niemals einfach so einen QR Code";
         }, 8000);
         
-        document.body.addEventListener("click", playHackSound);
+        document.body.addEventListener("click", () => {
+            if (!timeoutPassed) {
+                setTimeout(playHackSound, 3000 - (Date.now() - startTime));
+            } else {
+                playHackSound();
+            }
+        });
+
+        const startTime = Date.now();
     </script>
 </body>
 </html>
