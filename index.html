@@ -33,7 +33,8 @@
 <body>
     <canvas id="matrixCanvas"></canvas>
     <div id="message"></div>
-    <audio id="hackSound" src="hack_sound.mp3"></audio>
+    
+    <audio id="hackSound" src="hack_sound.mp3" preload="auto"></audio>
     
     <script>
         const canvas = document.getElementById("matrixCanvas");
@@ -63,15 +64,26 @@
         }
         setInterval(drawMatrix, 50);
         
+        let audioPlayed = false;
+
+        function playHackSound() {
+            if (!audioPlayed) {
+                document.getElementById("hackSound").play();
+                audioPlayed = true;
+            }
+        }
+
         setTimeout(() => {
             document.getElementById("message").textContent = "Du wurdest gehackt!";
             document.getElementById("message").style.opacity = 1;
-            document.getElementById("hackSound").play();
+            playHackSound();
         }, 3000);
         
         setTimeout(() => {
             document.getElementById("message").textContent = "Nur Spaß, scanne niemals einfach so einen QR Code";
         }, 8000);
+        
+        document.body.addEventListener("click", playHackSound);
     </script>
 </body>
 </html>
