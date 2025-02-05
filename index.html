@@ -33,6 +33,7 @@
 <body>
     <canvas id="matrixCanvas"></canvas>
     <div id="message"></div>
+    <audio id="hackSound" src="hack_sound.mp3"></audio>
     
     <script>
         const canvas = document.getElementById("matrixCanvas");
@@ -65,6 +66,7 @@
         setTimeout(() => {
             document.getElementById("message").textContent = "Du wurdest gehackt!";
             document.getElementById("message").style.opacity = 1;
+            document.getElementById("hackSound").play();
         }, 3000);
         
         setTimeout(() => {
