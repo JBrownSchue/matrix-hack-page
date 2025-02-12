@@ -7,7 +7,7 @@
     <style>
         body {
             margin: 0;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-x: hidden;
             overflow: hidden;
             background: black;
             color: limegreen;
@@ -37,8 +37,6 @@
     <canvas id="matrixCanvas"></canvas>
     <div id="message"></div>
     
-    <audio id="hackSound" src="hack_sound.mp3" preload="auto" style="display: none;"></audio>
-    
     <script>
         const canvas = document.getElementById("matrixCanvas");
         const ctx = canvas.getContext("2d");
@@ -66,37 +64,17 @@
             }
         }
         setInterval(drawMatrix, 50);
-        
-        let audioPlayed = false;
-        let timeoutPassed = false;
-
-        function playHackSound() {
-            if (!audioPlayed && timeoutPassed) {
-                document.getElementById("hackSound").play();
-                audioPlayed = true;
-            }
-        }
 
         setTimeout(() => {
-            document.getElementById("message").textContent = "Du wurdest gehackt!";
+            document.getElementById("message").textContent = "Von der Idee zur App: Digitale Lösungen für morgen.";
             document.getElementById("message").style.opacity = 1;
             timeoutPassed = true;
-            playHackSound();
         }, 3000);
         
         setTimeout(() => {
-            document.getElementById("message").textContent = "Nur Spaß, scanne niemals einfach so einen QR Code";
+            document.getElementById("message").textContent = "Softwareentwicklung: Kreativ, praktisch, zukunftsweisend.";
         }, 8000);
-        
-        document.body.addEventListener("click", () => {
-            if (!timeoutPassed) {
-                setTimeout(playHackSound, 3000 - (Date.now() - startTime));
-            } else {
-                playHackSound();
-            }
-        });
 
-        const startTime = Date.now();
     </script>
 </body>
 </html>
